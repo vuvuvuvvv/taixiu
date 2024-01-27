@@ -1,167 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Tài xỉu</title>
-    <meta charset="utf-8">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/popper.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
-    <style>
-        * {
-            transition: 0.3s!important;
-        }
-        #countDown,#result {
-            font-family: 'Creepster', cursive !important;
-        }
-        .bg-red {
-            background-color: red;
-        }
-
-        #boxItems {
-            border: 10px solid yellow;
-            border-right-color: red;
-            border-left-color: red;
-        }
-        #wrap-countDown {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-        }
-        .btn:focus {
-            outline: none !important;
-            box-shadow: none !important;
-        }
-    </style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./web/css/style.css" />
+    <script src="./web/js/jquery-3.6.0.min.js"></script>
+    <script src="./web/js/popper.min.js"></script>
+    <script src="./web/js/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+        integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+        integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
-        id='btnModalResult' hidden>
-</button>
-<div class="modal" id="myModal">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="d-flex align-items-center justify-content-center">
-                    <img src="" id="imgResult" class="w-50">
-                </div>
-                <div class='text-center text-uppercase'>
-                    <h1 class="mx-0 mb-3 text-danger fw-light" id="result"></h1>
-                    <button type="button" data-bs-dismiss="modal" id='btnModalClose'
-                            hidden></button>
+    <div id="wrapper">
+        <!-- Modal -->
+        <div class="modal fade" id="meme" data-bs-keyboard="false"
+            aria-labelledby="memeLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" id="content_meme">
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
+        <div id="intro" class="d-none">
+            <button type="button" id="btn_start">Chơi</button>
+            <div id="txt_info">Đồng ý điều khoản rồi chơi!</div>
+            <div id="confirm_form" class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="confirm">
+                <label class="form-check-label" for="confirm">Đồng ý không nghiện.</label>
+            </div>
+        </div>
 
-<div class="container-fluid p-4 bg-red text-white text-center">
-    <img src="images/logo.png" style="height: 25vh!important;">
-</div>
-<div class="container p-3 position-relative" id="box-wrapper">
-    <div class="row position-relative" id="boxItems" value="1">
-        <div class="col-4 p-3">
-            <img src="./images/logo.png" class="w-100" id="items_1">
-        </div>
-        <div class="col-4 p-3 border border-danger border-bottom-0 border-top-0">
-            <img src="./images/logo.png" class="w-100" id="items_2">
-        </div>
-        <div class="col-4 p-3">
-            <img src="./images/logo.png" class="w-100" id="items_3">
-        </div>
-    </div>
-    <div class="position-absolute d-none" id="wrap-countDown">
-        <span class="bg-red rounded-circle d-flex align-items-center justify-content-center" style="width:80px;height:80px;box-shadow: 0 0 10px 5px white;">
-            <span class="text-light" style="font-size: 50px" id="countDown">3</span>
-        </span>
-    </div>
-</div>
-<div class="container">
-    <div class="w-100 d-flex align-items-center justify-content-center position-relative">
-        <button class="btn bg-red text-light" type="button" onclick="spin()"><h3>Xóc</h3></button>
-    </div>
-</div>
-<script>
-    let arrImg = [
-        'images/1.jpg',
-        'images/2.jpg',
-        'images/3.jpg',
-        'images/4.jpg',
-        'images/5.jpg',
-        'images/6.jpg',
-    ];
-    function changeColorAnimate() {
-        if ($('#boxItems').val() == 1) {
-            $('#boxItems').val(2).css({
-                'border': '10px solid red',
-                'border-right-color': 'yellow',
-                'border-left-color': 'yellow',
-            })
-        } else {
-            $('#boxItems').val(1).css({
-                'border': '10px solid yellow',
-                'border-right-color': 'red',
-                'border-left-color': 'red',
-            })
-        }
-    }
-    function spin(){
-        let count = 3;
-        function countDown(){
-            $('#wrap-countDown').removeClass('d-none');
-            $('#countDown').html(count);
-            count--;
-        }
-        countDown();
-        let startCountDown = setInterval(countDown,1000);
-        function startSpin(){
-            if($("#box-wrapper").hasClass("p-3")) {
-                $('#box-wrapper').removeClass('p-3').addClass('p-5');
-            } else {
-                $('#box-wrapper').removeClass('p-5').addClass('p-3');
-            }
-            for (let i=1;i<=3;i++){
-                let num = Math.floor((Math.random() * 5));
-                let truVal = num +1;
-                $('#items_'+i).attr('src',arrImg[num]).attr('data-value',truVal);
-            }
-        }
-        const start = setInterval(startSpin, 50);
-        function stopSpin() {
-            if($("#box-wrapper").hasClass("p-5")) {
-                $('#box-wrapper').removeClass('p-5').addClass('p-3');
-            }
-            clearInterval(start);
-            clearInterval(startCountDown);
-            $('#wrap-countDown').addClass('d-none');
-            let total = 0;
-            for (let i=1;i<=3;i++){
-                total += parseInt($('#items_'+i).attr('data-value'));
-            }
-            if(total <= 10) {
-                $('#imgResult').attr('src','images/xiu.png');
-            } else {
-                $('#imgResult').attr('src','images/tai.png');
-            }
-            setTimeout(function () {
-                $('#result').html(total + ' ĐIỂM');
-                $('#btnModalResult').trigger("click");
-                setTimeout(function () {
-                    $('#btnModalClose').trigger("click");
-                }, 2000);
-            }, 700);
+        <div id="fr_main">
+            <div id="total_money">
+            </div>
 
-        }
-        setTimeout(stopSpin, 3000)
-    }
-    setInterval(changeColorAnimate, 300);
-</script>
+            <div id="box_btn_add_500k">
+                <button type="button" onclick="add500()" data-bs-toggle="modal" data-bs-target="#meme"
+                    role="button">Xin 500K</button>
+            </div>
+
+            <div id="header_txt">
+                bắt đầu cược
+            </div>
+
+            <div id="fr_table">
+                <div id="box_bet">
+                    <button type="button" class="btn_bet" id="bet_b" data-except-bet-type="s"><span>tài</span></button>
+                    <button type="button" class="btn_bet" id="bet_s" data-except-bet-type="b"><span>xỉu</span></button>
+                </div>
+
+                <div id="total_bet">
+                    <div class="fr_total_bet" id="fr_b">
+                        <span id="total_bet_b"></span>
+                    </div>
+                    <div class="fr_total_bet" id="fr_s">
+                        <span id="total_bet_s"></span>
+                    </div>
+                </div>
+
+                <div id="notify">
+                </div>
+
+                <div id="time">
+                    <span id="countdown" class="ending">20</span>
+                </div>
+
+                <div id="fr_animation">
+                    <div id="plate">
+                    </div>
+                    <div id="cover">
+                    </div>
+                    <div id="cubes">
+                        <div class="cube" id="c1">
+                        </div>
+                        <div class="cube" id="c2">
+                        </div>
+                        <div class="cube" id="c3">
+                            <span class="ct"></span>
+                            <span class="cl"></span>
+                            <span class="cr"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="fr_result">
+                <div class="dot_rs dot_b"></div>
+                <div class="dot_rs dot_b"></div>
+                <div class="dot_rs dot_b"></div>
+                <div class="dot_rs dot_s"></div>
+                <div class="dot_rs dot_b"></div>
+                <div class="dot_rs dot_b"></div>
+                <div class="dot_rs dot_s"></div>
+                <div class="dot_rs dot_s"></div>
+                <div class="dot_rs dot_b"></div>
+                <div class="dot_rs dot_s"></div>
+                <div class="dot_rs dot_s"></div>
+                <div class="dot_rs dot_s"></div>
+                <div class="dot_rs dot_s"></div>
+                <div class="dot_rs dot_b"></div>
+                <div class="dot_rs dot_b"></div>
+            </div>
+
+            <div id="box_bet_lv">
+                <span data-bet-lv="1" class="btn_bet_lv bet_1k"></span>
+                <span data-bet-lv="5" class="btn_bet_lv bet_5k"></span>
+                <span data-bet-lv="10" class="btn_bet_lv bet_10k"></span>
+                <span data-bet-lv="50" class="btn_bet_lv bet_50k"></span>
+                <span data-bet-lv="100" class="btn_bet_lv bet_100k"></span>
+                <span data-bet-lv="500" class="btn_bet_lv bet_500k"></span>
+                <span data-bet-lv="999999" class="btn_bet_lv bet_999999k"></span>
+            </div>
+        </div>
+        <div id="audio">
+        </div>
+    </div>
+
 </body>
+
 </html>

@@ -1,0 +1,4 @@
+start:
+datcuoc  : 20s
+xoc'     : 3s
+mo ketqua: 12s
