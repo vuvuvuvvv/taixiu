@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tài xỉu - Chống nghiện</title>
     <link rel="stylesheet" href="./web/css/style.css" />
+    <link rel="icon" type="image/png" href="./web/material/cover.png">
     <script src="./web/js/jquery-3.6.0.min.js"></script>
     <script src="./web/js/popper.min.js"></script>
     <script src="./web/js/main.js" defer></script>
@@ -28,7 +29,7 @@
             </div>
         </div>
 
-        <div id="intro" class="d-none">
+        <div id="intro">
             <button type="button" id="btn_start">Chơi</button>
             <div id="txt_info">Đồng ý điều khoản rồi chơi!</div>
             <div id="confirm_form" class="mb-3 form-check">
@@ -47,13 +48,13 @@
             </div>
 
             <div id="header_txt">
-                bắt đầu cược
+                
             </div>
 
             <div id="fr_table">
                 <div id="box_bet">
-                    <button type="button" class="btn_bet" id="bet_b" data-except-bet-type="s"><span>tài</span></button>
-                    <button type="button" class="btn_bet" id="bet_s" data-except-bet-type="b"><span>xỉu</span></button>
+                    <button type="button" class="btn_bet" id="bet_b" data-bet="1" data-except-bet-type="s"><span>tài</span></button>
+                    <button type="button" class="btn_bet" id="bet_s" data-bet="0" data-except-bet-type="b"><span>xỉu</span></button>
                 </div>
 
                 <div id="total_bet">
@@ -69,7 +70,7 @@
                 </div>
 
                 <div id="time">
-                    <span id="countdown" class="ending">20</span>
+                    <span id="countdown"></span>
                 </div>
 
                 <div id="fr_animation">
@@ -92,21 +93,6 @@
             </div>
 
             <div id="fr_result">
-                <div class="dot_rs dot_b"></div>
-                <div class="dot_rs dot_b"></div>
-                <div class="dot_rs dot_b"></div>
-                <div class="dot_rs dot_s"></div>
-                <div class="dot_rs dot_b"></div>
-                <div class="dot_rs dot_b"></div>
-                <div class="dot_rs dot_s"></div>
-                <div class="dot_rs dot_s"></div>
-                <div class="dot_rs dot_b"></div>
-                <div class="dot_rs dot_s"></div>
-                <div class="dot_rs dot_s"></div>
-                <div class="dot_rs dot_s"></div>
-                <div class="dot_rs dot_s"></div>
-                <div class="dot_rs dot_b"></div>
-                <div class="dot_rs dot_b"></div>
             </div>
 
             <div id="box_bet_lv">
