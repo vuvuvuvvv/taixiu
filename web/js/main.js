@@ -229,7 +229,7 @@ function formatTotalBet(type, val) {
 function add500() {
     // Rand meme
     const rand_meme = memes.splice(Math.floor(Math.random() * memes.length), 1)[0];
-    $("#content_meme").css('background-image', `url('/web/material/meme/meme${rand_meme}.png')`);
+    $("#content_meme").css('background-image', `url('./web/material/meme/meme${rand_meme}.png')`);
     used_memes.push(rand_meme);
     if (memes.length === 0) {
         memes = [...used_memes];
